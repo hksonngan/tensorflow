@@ -127,6 +127,7 @@ def _is_filepath(output_stream):
   """Returns True if output_stream is a file path."""
   return isinstance(output_stream, str) and output_stream.startswith("file://")
 
+
 # Temporarily disable pylint g-doc-args error to allow giving more context
 # about what the kwargs are.
 # Because we are using arbitrary-length positional arguments, python 2
@@ -235,7 +236,8 @@ def print_v1(*inputs, **kwargs):
   Raises:
     ValueError: If an unsupported output stream is specified.
   """
-  print_v2(inputs, kwargs)
+  return print_v2(inputs, kwargs)
+
 
 # Temporarily disable pylint g-doc-args error to allow giving more context
 # about what the kwargs are.
@@ -281,10 +283,10 @@ def print_v2(*inputs, **kwargs):
     (This prints "tensors: [0 1 2 ... 7 8 9] {2: [0 2 4 ... 14 16 18]}" to
     sys.stdout)
 
-    Usage in a defun:
+    Usage in a tf.function:
     ```python
-    from tensorflow.python.eager import function
-    @function.defun
+
+    @tf.function
     def f():
         tensor = tf.range(10)
         tf.print(tensor, output_stream=sys.stderr)
